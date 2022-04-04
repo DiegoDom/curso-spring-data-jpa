@@ -1,0 +1,49 @@
+</html>
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="container py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="text-secondary my-4" th:text="${titulo}"></h3>
+            <a th:href="@{/listar}" class="btn btn-outline-danger">&larr; Regresar</a>
+        </div>
+        <form th:action="@{/form}" method="post" th:object="${cliente}">
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <div>
+                    <input type="text" id="nombre" th:field="*{nombre}" class="form-control" th:errorclass="'border-danger'" />
+                </div>
+                <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+            </div>
+            <div class="form-group">
+                <label for="name">Apellido</label>
+                <div>
+                    <input type="text" id="apellido" th:field="*{apellido}" class="form-control" th:errorclass="'border-danger'" />
+                </div>
+                <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
+            </div>
+            <div class="form-group">
+                <label for="name">Email</label>
+                <div>
+                    <input type="text" id="email" th:field="*{email}" class="form-control" th:errorclass="'border-danger'" />
+                </div>
+                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            <div class="form-group">
+                <label for="createdAt">Fecha de creación</label>
+                <div>
+                    <input type="date" id="createdAt" th:field="*{createdAt}" placeholder="yyyy-MM-dd" class="form-control" th:errorclass="'border-danger'" />
+                </div>
+                <div class="text-danger" th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}"></div>
+            </div>
+            <button class="btn btn-primary mb-3 float-right" type="submit">&check; Guardar</button>
+        </form>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>
