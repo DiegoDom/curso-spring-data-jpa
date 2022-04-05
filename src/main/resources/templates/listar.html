@@ -29,6 +29,7 @@
                     <td th:text="${cliente.email}"></td>
                     <td th:text="${cliente.createdAt}"></td>
                     <td class="text-center">
+                        <a th:href="@{/ver/} + ${cliente.id}" class="btn btn-sm btn-outline-dark">Ver</a>
                         <a th:href="@{/form/} + ${cliente.id}" class="btn btn-sm btn-primary">Editar</a>
                         <a th:href="@{/eliminar/} + ${cliente.id}" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro que desea elimar este cliente?');">Eliminar</a>
                     </td>

@@ -7,6 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA - ' + ${titulo}"></title>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        footer {
+            margin: auto 0 0 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,12 +49,18 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <div class="alert alert-info my-2 alert-dismissible fade show" role="alert" th:if="${info != null}">
+                <h6 th:text="${info}"></h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>
     </header>
     <div class="container">
 
     </div>
-    <footer class="container fixed-bottom" th:fragment="footer">
+    <footer class="container" th:fragment="footer">
         <hr>
         <img th:src="@{/images/spring.png}" alt="Spring Logo" class="img-fluid w-25" />
         <p>Powered by <a href="https://spring.io/projects/spring-boot" target="_blank">SpringBoot</a> y <a href="https://www.thymeleaf.org/" target="_blank">Thymeleaf</a></p>

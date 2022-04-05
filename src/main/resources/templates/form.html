@@ -9,9 +9,9 @@
     <div class="container py-2">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="text-secondary my-4" th:text="${titulo}"></h3>
-            <a th:href="@{/listar}" class="btn btn-outline-danger">&larr; Regresar</a>
+            <a th:href="@{/listar}" class="btn btn-outline-danger">Regresar</a>
         </div>
-        <form th:action="@{/form}" method="post" th:object="${cliente}">
+        <form th:action="@{/form}" method="post" th:object="${cliente}" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">Nombre</label>
                 <div>
@@ -40,6 +40,13 @@
                 </div>
                 <div class="text-danger" th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}"></div>
             </div>
+            <div class="form-group">
+                <label for="file">Foto</label>
+                <div>
+                    <input type="file" id="file" class="form-control p-1" name="file" />
+                </div>
+            </div>
+
             <button class="btn btn-primary mb-3 float-right" type="submit">&check; Guardar</button>
         </form>
     </div>
