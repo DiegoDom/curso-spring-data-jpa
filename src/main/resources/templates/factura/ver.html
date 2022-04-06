@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="container py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="text-secondary my-4" th:text="${titulo}"></h4>
+            <a th:href="@{/ver/} + ${factura.cliente.id}" class="btn btn-sm btn-outline-danger">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h4 class="text-secondary" th:text="${factura.descripcion}"></h4>
+                <div class="h4"><strong>Folio: </strong><span th:text="${factura.id}"></span></div>
+                <div class="h5"><strong>Fecha: </strong><span th:text="${factura.createdAt}"></span></div>
+            </div>
+            <div class="col-12 col-md-6 detalles__factura__cliente">
+                <h4 class="text-secondary">Datos del cliente</h4>
+                <div class="h4"><span th:text="${factura.cliente}"></span></div>
+                <div class="h5"><span th:text="${factura.cliente.email}"></span></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 my-4">
+                <h5 class="text-secondary">Conceptos</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-striped table-hover mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody th:if="${#lists.size(factura.detalles) > 0 }">
+                            <tr th:each="un_detalle: ${factura.detalles}">
+                                <td th:text="${un_detalle.producto.nombre}"></td>
+                                <td th:text="${un_detalle.producto.precio}"></td>
+                                <td style="width: 100px;" class="text-center" th:text="${un_detalle.cantidad}"></td>
+                                <td class="align-middle text-right" style="width: 150px;" th:text="${un_detalle.calcularImporte()}"></td>
+                            </tr>
+                        </tbody>
+                        <tbody th:if="${#lists.size(factura.detalles) <= 0 }">
+                            <tr class="text-center">
+                                <td colspan="4">Está factura no cuenta con conceptos...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-end" th:if="${#lists.size(factura.detalles) > 0 }">
+                    <table class="table table-sm table-bordered table-striped table-hover" style="width: 152px;">
+                        <tbody>
+                            <tr>
+                                <td class="d-flex flex-row justify-content-between">
+                                    <h6 class="m-0">Total:</h6> <span th:text="${factura.total}"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="observaciones_div">
+                    <h4 class="text-secondary">Observaciones</h4>
+                    <textarea id="observaciones" rows="4" class="form-control" disabled th:text="${factura.observacion}"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

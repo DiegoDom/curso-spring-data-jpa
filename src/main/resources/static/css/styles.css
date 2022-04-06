@@ -1,0 +1,77 @@
+  body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+  }
+  
+  footer {
+      margin: auto 0 0 0;
+  }
+  
+  .detalles__factura__cliente {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+  }
+  
+  .h4 {
+      color: grey !important;
+      font-weight: lighter;
+      font-size: 26px;
+  }
+  
+  .h5 {
+      color: grey !important;
+      font-weight: lighter;
+      font-size: 22px;
+  }
+  
+  .form-control[disabled],
+  .form-control[readonly],
+  fieldset[disabled] .form-control {
+      background-color: white;
+  }
+  
+  .cliente__detalle {
+      padding: 5px 0;
+  }
+  
+  .cliente__detalle p {
+      margin: 0;
+      color: #6c757d;
+      font-size: 18px;
+  }
+  
+  .cliente__detalle h3 {
+      margin: 0;
+      font-weight: 400;
+      color: #6c757d;
+  }
+  
+  .observaciones_div {
+      width: 35%;
+  }
+  
+  table td {
+      white-space: nowrap;
+  }
+  
+  @media (max-width: 374.98px) {}
+  
+  @media (max-width: 575.98px) {}
+  
+  @media (max-width: 767.98px) {
+      .detalles__factura__cliente {
+          margin: 20px 0;
+          align-items: flex-start;
+      }
+      .observaciones_div {
+          width: 100%;
+      }
+  }
+  
+  @media (max-width: 991.98px) {}
+  
+  @media (max-width: 1199.98px) {}
+  
+  @media (min-width: 1399.98px) {}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+
+<body>
+    <table class="d-none" th:fragment="facturaDetalles">
+        <tbody id="plantillaFacturaDetalles">
+            <tr id="row_{ID}">
+                <td class="d-none"><input type="hidden" name="item_id[]" value="{ID}"></td>
+                <td class="align-middle">{NOMBRE}</td>
+                <td class="align-middle">{PRECIO}</td>
+                <td style="width: 100px;">
+                    <input type="number" value="1" name="cantidad[]" class="form-control h-25" id="cantidad_{ID}" onchange="detallesHelper.calcularImporte({ID},{PRECIO},this.value);" />
+                </td>
+                <td class="align-middle" style="width: 150px;"><span id="total_importe_{ID}">0</span></td>
+                <td style="width: 60px;" class="text-center font-weight-bold">
+                    <a class="btn btn-danger" onclick="detallesHelper.eliminarLineaDetalle({ID});">x</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

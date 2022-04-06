@@ -37,14 +37,14 @@ public class ClienteController {
 
 	@Autowired
 	private IClienteService clienteService;
-	
+
 	@Autowired
 	private IUploadFileService uploadFileService;
 
 	/* Se incluye el :.+ para que Spring no trunque el nombre de la imagen */
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
-		
+
 		Resource recurso = null;
 		try {
 			recurso = uploadFileService.load(filename);
@@ -52,16 +52,18 @@ public class ClienteController {
 			e.printStackTrace();
 		}
 
-		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"").body(recurso);
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + recurso.getFilename() + "\"")
+				.body(recurso);
 
-	} 
+	}
 
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Cliente cliente = null;
 
-		cliente = clienteService.findOne(id);
+		cliente = clienteService.fetchByIdWithFacturas(id);
 
 		if (cliente == null) {
 			model.put("titulo", "Listado de clientes");
@@ -76,9 +78,9 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-	public String listar(@RequestParam(name="page", defaultValue="0") int page, Model model) {
+	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
-		Pageable pageRequest = PageRequest.of(page, 15);
+		Pageable pageRequest = PageRequest.of(page, 8);
 		Page<Cliente> clientes = clienteService.findAll(pageRequest);
 
 		PageRender<Cliente> pageRender = new PageRender<>("/listar", clientes);
@@ -101,7 +103,8 @@ public class ClienteController {
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String guardar(@Valid Cliente cliente, BindingResult result, Model model, @RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) {
+	public String guardar(@Valid Cliente cliente, BindingResult result, Model model,
+			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Crear cliente");
@@ -110,10 +113,11 @@ public class ClienteController {
 
 		if (!foto.isEmpty()) {
 
-			if (cliente.getId() != null && cliente.getId() > 0 && cliente.getFoto() != null && cliente.getFoto().length() > 0) {
+			if (cliente.getId() != null && cliente.getId() > 0 && cliente.getFoto() != null
+					&& cliente.getFoto().length() > 0) {
 				uploadFileService.delete(cliente.getFoto());
 			}
-			
+
 			String uniqueFilename = null;
 			try {
 				uniqueFilename = uploadFileService.copy(foto);
@@ -124,6 +128,8 @@ public class ClienteController {
 			flash.addFlashAttribute("info", "Has subido correctamente '" + foto.getOriginalFilename() + "'");
 			cliente.setFoto(uniqueFilename);
 
+		} else {
+			cliente.setFoto("");
 		}
 
 		String mensajeFlash = (cliente.getId() != null) ? "Cliente editado con éxito" : "Cliente creado con éxito!";
@@ -140,7 +146,7 @@ public class ClienteController {
 		Cliente cliente = null;
 
 		if (id > 0) {
-			
+
 			cliente = clienteService.findOne(id);
 
 			if (cliente == null) {
@@ -161,7 +167,7 @@ public class ClienteController {
 		return "form";
 	}
 
-	@RequestMapping(value="/eliminar/{id}")
+	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 
 		if (id > 0) {

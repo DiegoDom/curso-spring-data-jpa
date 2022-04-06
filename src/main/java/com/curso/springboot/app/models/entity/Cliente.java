@@ -1,21 +1,24 @@
 package com.curso.springboot.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-// import javax.persistence.PrePersist;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,18 +42,24 @@ public class Cliente implements Serializable {
 	@Email
 	private String email;
 
-	@Past
-	@NotNull
 	@Column(name = "created_at")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
 
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Factura> facturas;
+
 	private String foto;
 
-	/*
-	 * @PrePersist public void prePersist() { createdAt = new Date(); }
-	 */
+	public Cliente() {
+		facturas = new ArrayList<Factura>();
+	}
+
+	@PrePersist
+	public void prePersist() {
+		createdAt = new Date();
+	}
 
 	public Long getId() {
 		return id;
@@ -102,6 +111,23 @@ public class Cliente implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
+
+	public void addFactura(Factura factura) {
+		facturas.add(factura);
+	}
+
+	@Override
+	public String toString() {
+		return nombre + " " + apellido;
 	}
 
 }

@@ -9,7 +9,9 @@
     <div class="container py-2">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="text-secondary my-4" th:text="${titulo}"></h3>
-            <a th:href="@{/listar}" class="btn btn-outline-danger">Regresar</a>
+            <a th:href="@{/listar}" class="btn btn-sm btn-outline-danger">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+            </a>
         </div>
         <form th:action="@{/form}" method="post" th:object="${cliente}" enctype="multipart/form-data">
             <div class="form-group">
@@ -33,13 +35,13 @@
                 </div>
                 <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
             </div>
-            <div class="form-group">
+            <!--  <div class="form-group">
                 <label for="createdAt">Fecha de creación</label>
                 <div>
                     <input type="date" id="createdAt" th:field="*{createdAt}" placeholder="yyyy-MM-dd" class="form-control" th:errorclass="'border-danger'" />
                 </div>
                 <div class="text-danger" th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}"></div>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="file">Foto</label>
                 <div>
@@ -47,7 +49,9 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary mb-3 float-right" type="submit">&check; Guardar</button>
+            <button class="btn btn-primary mb-3 float-right" type="submit">
+                Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            </button>
         </form>
     </div>
     <footer th:replace="layout/layout :: footer"></footer>
