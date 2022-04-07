@@ -50,3 +50,14 @@ INSERT INTO factura_detalles (cantidad, factura_id, producto_id) VALUES (1,1,7);
 
 INSERT INTO facturas (descripcion, observacion, cliente_id, created_at) VALUES ('Factura equipos de audio', "Audifonos Reacondicionados", 1, NOW());
 INSERT INTO factura_detalles (cantidad, factura_id, producto_id) VALUES (2,2,6);
+
+/* Creamos algunos usuarios */
+
+INSERT INTO users (username, password, enabled) VALUES ('admin','$2a$10$d9K.7D5YNZlt52/3vKtGh.V9KqeI7WzAvb0r69GUVYPn9AnklFLyS',1);
+INSERT INTO users (username, password, enabled) VALUES ('diego','$2a$10$BOoM8FEwBc/6uNgDkzkiyeV84ZyhOD3JkSSki9EUu8lpKNICUI2ea',1);
+INSERT INTO users (username, password, enabled) VALUES ('dab','$2a$10$RqviJruzmrFSUnKBHaMJRurzEqlMfcJxcy5aXmAl6slwlIo7ptkFW',1);
+
+INSERT INTO authorities (user_id, authority) VALUES (1, 'ROLE_USER');
+INSERT INTO authorities (user_id, authority) VALUES (1, 'ROLE_ADMIN');
+INSERT INTO authorities (user_id, authority) VALUES (2, 'ROLE_USER');
+INSERT INTO authorities (user_id, authority) VALUES (3, 'ROLE_ADMIN');
