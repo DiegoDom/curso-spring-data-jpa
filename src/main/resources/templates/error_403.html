@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="layout/layout :: head"></head>
+
+<body>
+    <header th:replace="layout/layout :: header"></header>
+    <div class="forbidden__container">
+        <p>Acceso denegado <i class="fa fa-exclamation-circle" aria-hidden="true"></i></p>
+        <span>Lo sentimos <small th:text="${#httpServletRequest.remoteUser}"></small> no está autorizado para acceder a este recurso o realizar esta acción.</span>
+        <a th:href="@{/}" class="btn btn-outline-dark" role="button">
+            Regresar a la página principal <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+    </div>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+
+</html>

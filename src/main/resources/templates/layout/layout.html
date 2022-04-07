@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
     <meta charset="UTF-8" />
@@ -21,11 +21,28 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" th:href="@{/listar}">Clientes</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav mr-5">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item dropdown mr-4" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <span sec:authentication="name"></span>
+                        </a>
+                        <div class="dropdown-menu w-25" aria-labelledby="navbarDropdown">
+                            <form th:action="@{/logout}" method="post" id="logoutForm">
+                                <button class="dropdown-item p-1 text-center" onclick="document.getElementById('logoutForm').submit();" type="submit">Cerrar
+                                    sesión</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+
             </div>
         </nav>
         <div class="container mt-2">
@@ -47,16 +64,23 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <div class="alert alert-warning my-2 alert-dismissible fade show" role="alert" th:if="${warning != null}">
+                <h6 th:text="${warning}"></h6>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>
     </header>
     <div class="container">
 
     </div>
-    <footer class="container" th:fragment="footer">
+    <footer class="container mb-1 text-secondary" th:fragment="footer">
         <hr>
         <img th:src="@{/images/spring.png}" alt="Spring Logo" class="img-fluid w-25" />
-        <p>Powered by <a href="https://spring.io/projects/spring-boot" target="_blank">SpringBoot</a> y <a href="https://www.thymeleaf.org/" target="_blank">Thymeleaf</a></p>
-        <p>Este proyecto fue desarrollado en IDE Eclipse + Spring Plugins (STS Spring Tool), Diego Alberto Domínguez Hernández. <br>&copy; Company 2022. Todos los derechos reservados. Términos de uso y privacidad</p>
+        <p class="m-0">Powered by <a href="https://spring.io/projects/spring-boot" target="_blank">SpringBoot</a> y <a href="https://www.thymeleaf.org/" target="_blank">Thymeleaf</a></p>
+        <p class="m-0">&copy; DiegoDom 2022. Todos los derechos reservados.
+        </p>
         <script th:src="@{/js/jquery.min.js}"></script>
         <script th:src="@{/js/popper.min.jss}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>

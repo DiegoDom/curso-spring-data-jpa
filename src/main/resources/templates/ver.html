@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<html lang="es" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="layout/layout :: head"></head>
 
@@ -38,7 +38,7 @@
                 <hr>
                 <div class="d-flex justify-content-between align-items-center py-2">
                     <h4>Facturas</h4>
-                    <a th:href="@{/factura/form/} + ${cliente.id}" class="btn btn-info">
+                    <a th:href="@{/factura/form/} + ${cliente.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-info">
                         Crear factura <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -55,13 +55,14 @@
                         </thead>
                         <tbody th:if="${#lists.size(cliente.facturas) > 0 }">
                             <tr th:each="una_factura: ${cliente.facturas}">
-                                <td style="width: 50px;" class="text-center">
+                                <td style="width: 50px;" class="text-center" sec:authorize="!hasRole('ROLE_ADMIN')" th:text="${una_factura.id}"></td>
+                                <td style="width: 50px;" class="text-center" sec:authorize="hasRole('ROLE_ADMIN')">
                                     <a th:href="@{/factura/ver/} + ${una_factura.id}" th:text="${una_factura.id}"></a>
                                 </td>
                                 <td th:text="${una_factura.descripcion}"></td>
                                 <td th:text="${una_factura.createdAt}"></td>
                                 <td th:text="${una_factura.total}"></td>
-                                <td style="width: 50px;" class="text-center">
+                                <td style="width: 50px;" class="text-center" sec:authorize="hasRole('ROLE_ADMIN')">
                                     <a th:href="@{/factura/eliminar/} + ${una_factura.id}" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Está seguro que desea elimar está factura?');">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
