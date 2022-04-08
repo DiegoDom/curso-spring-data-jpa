@@ -10,26 +10,27 @@
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="text-secondary my-4" th:text="${titulo}"></h3>
             <a th:href="@{/listar}" class="btn btn-sm btn-outline-danger">
-                <i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                <span th:text="#{text.regresar.boton}">Regresar</span>
             </a>
         </div>
         <form th:action="@{/form}" method="post" th:object="${cliente}" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="name">Nombre</label>
+                <label for="name" th:text="#{text.cliente.nombre}">Nombre</label>
                 <div>
                     <input type="text" id="nombre" th:field="*{nombre}" class="form-control" th:errorclass="'border-danger'" />
                 </div>
                 <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
             </div>
             <div class="form-group">
-                <label for="name">Apellido</label>
+                <label for="name" th:text="#{text.cliente.apellido}">Apellido</label>
                 <div>
                     <input type="text" id="apellido" th:field="*{apellido}" class="form-control" th:errorclass="'border-danger'" />
                 </div>
                 <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
             </div>
             <div class="form-group">
-                <label for="name">Email</label>
+                <label for="name" th:text="#{text.cliente.email}">Email</label>
                 <div>
                     <input type="text" id="email" th:field="*{email}" class="form-control" th:errorclass="'border-danger'" />
                 </div>
@@ -43,14 +44,15 @@
                 <div class="text-danger" th:if="${#fields.hasErrors('createdAt')}" th:errors="*{createdAt}"></div>
             </div> -->
             <div class="form-group">
-                <label for="file">Foto</label>
+                <label for="file" th:text="#{text.cliente.foto}">Foto</label>
                 <div>
                     <input type="file" id="file" class="form-control p-1" name="file" />
                 </div>
             </div>
 
             <button class="btn btn-primary mb-3 float-right" type="submit">
-                Guardar <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                <span th:text="${titulo}"></span>
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
             </button>
         </form>
     </div>

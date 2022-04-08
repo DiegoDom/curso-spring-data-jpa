@@ -5,8 +5,8 @@
     <nav aria-label="pagination" th:fragment="paginator">
         <ul class="pagination justify-content-center">
             <li th:class="${pagination.first ? 'page-item disabled' : 'page-item'}">
-                <span class="page-link" th:if="${pagination.first}">Primera</span>
-                <a class="page-link" th:if="${!pagination.first}" th:href="@{${pagination.url}(page=0)}">Primera</a>
+                <span class="page-link" th:if="${pagination.first}" th:text="#{text.paginator.first}"></span>
+                <a class="page-link" th:if="${!pagination.first}" th:href="@{${pagination.url}(page=0)}" th:text="#{text.paginator.first}"></a>
             </li>
             <li th:class="${pagination.first ? 'page-item disabled' : 'page-item'}">
                 <span class="page-link" th:if=" ${!pagination.hasPrevious} ">&laquo;</span>
@@ -19,12 +19,12 @@
             </li>
 
             <li th:class="${pagination.last ? 'page-item disabled' : 'page-item'}">
-                <span class="page-link" th:if="${!pagination.hasNext} ">&raquo</span>
+                <span class="page-link" th:if="${!pagination.hasNext} ">&raquo;</span>
                 <a class="page-link " th:if="${pagination.hasNext} " th:href="@{${pagination.url}(page=${pagination.current})} ">&raquo;</a>
             </li>
             <li th:class="${pagination.last ? 'page-item disabled' : 'page-item'}">
-                <span class="page-link" th:if="${pagination.last} ">Última</span>
-                <a class="page-link " th:if="${!pagination.last} " th:href="@{${pagination.url}(page=${pagination.total - 1})} ">Última</a>
+                <span class="page-link" th:if="${pagination.last}" th:text="#{text.paginator.last}"></span>
+                <a class="page-link " th:if="${!pagination.last} " th:href="@{${pagination.url}(page=${pagination.total - 1})}" th:text="#{text.paginator.last}"></a>
             </li>
         </ul>
     </nav>

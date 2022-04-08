@@ -23,12 +23,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/listar}">Clientes</a>
+                        <a class="nav-link" th:href="@{/listar}" th:text="#{text.menu.customer}">Clientes</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mr-5">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+                        <a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{text.menu.signin}">Iniciar sesión</a>
                     </li>
                     <li class="nav-item dropdown mr-4" sec:authorize="isAuthenticated()">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -36,7 +36,7 @@
                         </a>
                         <div class="dropdown-menu w-25" aria-labelledby="navbarDropdown">
                             <form th:action="@{/logout}" method="post" id="logoutForm">
-                                <button class="dropdown-item p-1 text-center" onclick="document.getElementById('logoutForm').submit();" type="submit">Cerrar
+                                <button class="dropdown-item p-1 text-center" onclick="document.getElementById('logoutForm').submit();" type="submit" th:text="#{text.menu.signout}">Cerrar
                                     sesión</button>
                             </form>
                         </div>
@@ -77,10 +77,19 @@
     </div>
     <footer class="container mb-1 text-secondary" th:fragment="footer">
         <hr>
-        <img th:src="@{/images/spring.png}" alt="Spring Logo" class="img-fluid w-25" />
-        <p class="m-0">Powered by <a href="https://spring.io/projects/spring-boot" target="_blank">SpringBoot</a> y <a href="https://www.thymeleaf.org/" target="_blank">Thymeleaf</a></p>
-        <p class="m-0">&copy; DiegoDom 2022. Todos los derechos reservados.
-        </p>
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <img th:src="@{/images/spring-logo.svg}" alt="Spring Logo" class="img-fluid w-50" />
+                <p class="m-0">Powered by <a href="https://spring.io/projects/spring-boot" target="_blank">SpringBoot</a> y <a href="https://www.thymeleaf.org/" target="_blank">Thymeleaf</a></p>
+                <p class="m-0">&copy; DiegoDom 2022. <span th:text="#{text.footer.copy}"></span>
+                </p>
+            </div>
+            <div class="col-md-6 col-12 d-flex justify-content-end align-items-start">
+                <a class="btn btn-sm btn-outline-dark mr-1" th:href="@{/locale(lang=es_ES)}">ES</a>
+                <a class="btn btn-sm btn-outline-dark mr-1" th:href="@{/locale(lang=en_US)}">EN</a>
+                <a class="btn btn-sm btn-outline-dark" th:href="@{/locale(lang=de_DE)}">DE</a>
+            </div>
+        </div>
         <script th:src="@{/js/jquery.min.js}"></script>
         <script th:src="@{/js/popper.min.jss}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>

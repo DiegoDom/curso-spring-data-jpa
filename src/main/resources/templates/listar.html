@@ -11,7 +11,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="text-secondary my-4" th:text="${titulo}"></h3>
                     <a th:href="@{/form}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary">
-                        Crear <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span th:text="#{text.cliente.crear}" /> <i class="fa fa-plus" aria-hidden="true"></i>
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -19,10 +19,10 @@
                         <thead>
                             <tr>
                                 <th sec:authorize="hasRole('ROLE_USER')">ID</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Correo</th>
-                                <th>Fecha</th>
+                                <th th:text="#{text.cliente.nombre}"></th>
+                                <th th:text="#{text.cliente.apellido}"></th>
+                                <th th:text="#{text.cliente.email}"></th>
+                                <th th:text="#{text.cliente.createdAt}"></th>
                                 <th class="text-center"></th>
                             </tr>
                         </thead>
@@ -43,7 +43,7 @@
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                     <a th:href="@{/factura/form/} + ${cliente.id}" sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-info">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Factura
+                                        <i class="fa fa-plus" aria-hidden="true"></i> <span th:text="#{text.cliente.factura}" />
                                     </a>
                                 </td>
                             </tr>

@@ -6,10 +6,10 @@
 <body>
     <header th:replace="layout/layout :: header"></header>
     <div class="forbidden__container">
-        <p>Acceso denegado <i class="fa fa-exclamation-circle" aria-hidden="true"></i></p>
-        <span>Lo sentimos <small th:text="${#httpServletRequest.remoteUser}"></small> no está autorizado para acceder a este recurso o realizar esta acción.</span>
+        <p><span th:text="#{text.security.error.403.titulo}">Acceso denegado </span> <i class="fa fa-exclamation-circle" aria-hidden="true"></i></p>
+        <span th:utext="#{text.security.error.403.permiso(${#authentication.name})}"></span>
         <a th:href="@{/}" class="btn btn-outline-dark" role="button">
-            Regresar a la página principal <i class="fa fa-home" aria-hidden="true"></i>
+            <small th:text="#{text.security.error.403.volver}">Regresar a la página principal</small> <i class="fa fa-home" aria-hidden="true"></i>
         </a>
     </div>
     <footer th:replace="layout/layout :: footer"></footer>
