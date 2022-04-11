@@ -15,8 +15,11 @@
         </div>
         <div class="row">
             <div class="col-12 d-flex justify-content-end align-items-center">
-                <a th:href="@{'/factura/ver/' + ${factura.id}(format=pdf)}" target="_blank" class="btn btn-danger">
+                <a th:href="@{'/factura/ver/' + ${factura.id}(format=pdf)}" target="_blank" class="btn btn-danger mr-2">
                     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                </a>
+                <a th:href="@{'/factura/ver/' + ${factura.id}(format=xlsx)}" target="_blank" class="btn btn-success">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="col-12 col-md-6">
