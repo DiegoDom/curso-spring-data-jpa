@@ -14,6 +14,11 @@
             </a>
         </div>
         <div class="row">
+            <div class="col-12 d-flex justify-content-end align-items-center">
+                <a th:href="@{'/factura/ver/' + ${factura.id}(format=pdf)}" target="_blank" class="btn btn-danger">
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                </a>
+            </div>
             <div class="col-12 col-md-6">
                 <h4 class="text-secondary" th:text="${factura.descripcion}"></h4>
                 <div class="h4"><strong>Folio: </strong><span th:text="${factura.id}"></span></div>
